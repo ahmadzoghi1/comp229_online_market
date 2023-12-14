@@ -1,14 +1,14 @@
-const Products = require("../models/Products");
+const Products = require("../Models/Products");
 
 // add data
 module.exports.addProducts = async (req, res) => {
     try {
         const { name, description, price, quantity, category } = req.body;
 
-        const Products = new Note({
+        const products = new Products({
             name, description, price, quantity, category
         });
-        const savedProducts = await Products.save();
+        const savedProducts = await products.save();
         let message = "Products saved successfully";
         res.json({savedProducts,message});
         console.log(message);
@@ -58,9 +58,9 @@ module.exports.updateProducts = async (req, res) => {
 // read data
 module.exports.fetchSingleProduct = async (req, res) => {
     try {
-        const Products = await Products.findOne(req.id);
+        const products = await Products.findOne(req.id);
         let message = "Product found with requested id";
-        res.json({Products,message});
+        res.json({products,message});
     } catch (error) {
         console.error(error.message);
         res.status(500).send("internal server error occurred");
